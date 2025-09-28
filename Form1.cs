@@ -70,7 +70,7 @@ namespace BluetifyApp
 
             Panel titleBar = new Panel
             {
-                Height = 30,
+                Height = 25,
                 Dock = DockStyle.Top,
                 BackColor = Color.Black
             };
@@ -131,7 +131,7 @@ namespace BluetifyApp
         private async void InitializeWebView(WebView2 webView)
         {
             await webView.EnsureCoreWebView2Async(null);
-            webView.CoreWebView2.Navigate("http://cedkemc.alwaysdata.net/music/");
+            webView.CoreWebView2.Navigate("https://bluetify.alwaysdata.net");
         }
     }
 }
