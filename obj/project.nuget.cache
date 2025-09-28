@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "aSet3dgybTg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mioch\\Desktop\\Bluetify\\bluetify-win64\\BluetifyApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mioch\\.nuget\\packages\\microsoft.web.webview2\\1.0.3485.44\\microsoft.web.webview2.1.0.3485.44.nupkg.sha512",
+    "C:\\Users\\mioch\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.9\\microsoft.netcore.app.runtime.win-x64.9.0.9.nupkg.sha512",
+    "C:\\Users\\mioch\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.9\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.9.nupkg.sha512",
+    "C:\\Users\\mioch\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.9\\microsoft.aspnetcore.app.runtime.win-x64.9.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}
