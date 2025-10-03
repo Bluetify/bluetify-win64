@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
+using Microsoft.Web.WebView2.Core;
+using System.IO;
 
 namespace BluetifyApp
 {
@@ -158,7 +160,7 @@ namespace BluetifyApp
             minimizeTimer.Tick += MinimizeTimer_Tick;
         }
 
-        private void MinimizeTimer_Tick(object sender, EventArgs e)
+        private void MinimizeTimer_Tick(object? sender, EventArgs e)
         {
             if (this.Opacity > 0.3)
                 this.Opacity -= 0.05;
@@ -178,8 +180,17 @@ namespace BluetifyApp
 
         private async void InitializeWebView(WebView2 webView)
         {
-            await webView.EnsureCoreWebView2Async(null);
-            webView.CoreWebView2.Navigate("http://localhost:3000"); // https://bluetify.alwaysdata.net
+            try
+            {
+                string userDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Bluetify", "WebView2");
+                var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder);
+                await webView.EnsureCoreWebView2Async(env);
+                webView.CoreWebView2.Navigate("http://bluetify.alwaysdata.net/");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("WebView2 Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

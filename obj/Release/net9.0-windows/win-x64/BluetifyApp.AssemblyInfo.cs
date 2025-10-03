@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BluetifyApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+577f5f487b677c908fa603af5d876fb973d65546")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0c739c3c8a926440ba6ff9f340b689c5a7e7916")]
 [assembly: System.Reflection.AssemblyProductAttribute("BluetifyApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BluetifyApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
