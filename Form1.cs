@@ -17,6 +17,10 @@ namespace BluetifyApp
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
+        private System.Windows.Forms.Timer minimizeTimer;
+        private bool isMinimizing = false;
+        private int originalHeight;
+
         protected override void WndProc(ref Message m)
         {
             const int RESIZE_HANDLE_SIZE = 10;
@@ -67,12 +71,13 @@ namespace BluetifyApp
             this.Height = 768;
             this.BackColor = Color.Black;
             this.Padding = new Padding(5);
+            this.DoubleBuffered = true;
 
             Panel titleBar = new Panel
             {
-                Height = 25,
+                Height = 30,
                 Dock = DockStyle.Top,
-                BackColor = Color.Black
+                BackColor = Color.FromArgb(20, 20, 20)
             };
             this.Controls.Add(titleBar);
 
@@ -85,31 +90,52 @@ namespace BluetifyApp
                 }
             };
 
-            Button closeBtn = new Button
-            {
-                Text = "X",
-                ForeColor = Color.White,
-                BackColor = Color.Black,
-                FlatStyle = FlatStyle.Flat,
-                Width = 50,
-                Dock = DockStyle.Right
-            };
-            closeBtn.FlatAppearance.BorderSize = 0;
-            closeBtn.Click += (s, e) => this.Close();
-            titleBar.Controls.Add(closeBtn);
-
             Button minBtn = new Button
             {
-                Text = "_",
-                ForeColor = Color.White,
-                BackColor = Color.Black,
+                Width = 40,
+                Dock = DockStyle.Right,
                 FlatStyle = FlatStyle.Flat,
-                Width = 50,
-                Dock = DockStyle.Right
+                BackColor = Color.FromArgb(20, 20, 20)
             };
             minBtn.FlatAppearance.BorderSize = 0;
-            minBtn.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
+            minBtn.Paint += (s, e) =>
+            {
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                using (Pen pen = new Pen(Color.White, 2))
+                {
+                    e.Graphics.DrawLine(pen, 12, 18, 28, 18);
+                }
+            };
+            minBtn.Click += (s, e) =>
+            {
+                if (!isMinimizing)
+                {
+                    originalHeight = this.Height;
+                    isMinimizing = true;
+                    minimizeTimer.Start();
+                }
+            };
             titleBar.Controls.Add(minBtn);
+
+            Button closeBtn = new Button
+            {
+                Width = 40,
+                Dock = DockStyle.Right,
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.FromArgb(20, 20, 20)
+            };
+            closeBtn.FlatAppearance.BorderSize = 0;
+            closeBtn.Paint += (s, e) =>
+            {
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                using (Pen pen = new Pen(Color.Red, 2))
+                {
+                    e.Graphics.DrawLine(pen, 12, 12, 28, 28);
+                    e.Graphics.DrawLine(pen, 28, 12, 12, 28);
+                }
+            };
+            closeBtn.Click += (s, e) => this.Close();
+            titleBar.Controls.Add(closeBtn);
 
             Panel panel = new Panel
             {
@@ -126,12 +152,34 @@ namespace BluetifyApp
             panel.Controls.Add(webView);
 
             InitializeWebView(webView);
+
+            minimizeTimer = new System.Windows.Forms.Timer();
+            minimizeTimer.Interval = 15;
+            minimizeTimer.Tick += MinimizeTimer_Tick;
+        }
+
+        private void MinimizeTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.Opacity > 0.3)
+                this.Opacity -= 0.05;
+
+            if (this.Height > 100)
+                this.Height -= 40;
+
+            if (this.Opacity <= 0.3 || this.Height <= 100)
+            {
+                minimizeTimer.Stop();
+                this.WindowState = FormWindowState.Minimized;
+                this.Opacity = 1;
+                this.Height = originalHeight;
+                isMinimizing = false;
+            }
         }
 
         private async void InitializeWebView(WebView2 webView)
         {
             await webView.EnsureCoreWebView2Async(null);
-            webView.CoreWebView2.Navigate("https://bluetify.alwaysdata.net");
+            webView.CoreWebView2.Navigate("http://localhost:3000"); // https://bluetify.alwaysdata.net
         }
     }
 }

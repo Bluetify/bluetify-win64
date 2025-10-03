@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "aSet3dgybTg=",
+  "dgSpecHash": "YLDfAZ5AduY=",
   "success": true,
   "projectFilePath": "C:\\Users\\mioch\\Desktop\\Bluetify\\bluetify-win64\\BluetifyApp.csproj",
   "expectedPackageFiles": [
@@ -9,5 +9,15 @@
     "C:\\Users\\mioch\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.9\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.9.nupkg.sha512",
     "C:\\Users\\mioch\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.9\\microsoft.aspnetcore.app.runtime.win-x64.9.0.9.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Une erreur s’est produite lors de l’obtention des données de vulnérabilité du package\u00A0: Impossible de charger l'index de service pour la source https://api.nuget.org/v3/index.json.",
+      "projectPath": "C:\\Users\\mioch\\Desktop\\Bluetify\\bluetify-win64\\BluetifyApp.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\mioch\\Desktop\\Bluetify\\bluetify-win64\\BluetifyApp.csproj",
+      "targetGraphs": []
+    }
+  ]
 }
